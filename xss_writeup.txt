@@ -1,0 +1,4 @@
+Mixed Content refers to the mixing of HTTP and HTTPS. An attacker can take advantage of the HTTP portions of a page, even if the rest of the page is HTTPS. This makes sites with mixed content dangerous.
+
+Mixed Content can be split up into two categories: mixed active content, which refers to scripts, and mixed passive content, which refers to other HTML tags, like <img>. The "security.mixed_content.block_active_content" setting on Firefox disables mixed active content, which makes the browser more secure by potentially blocking attackers from XSS attacks, like in Part 3. We turned it off so that our attacks in part 3, which specifically took advantage of mixed active content, would work. 
+
