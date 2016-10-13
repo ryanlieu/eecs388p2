@@ -1,0 +1,1 @@
+from BaseHTTPServer import *;H=BaseHTTPRequestHandler;H.do_GET=lambda s:s.send_response(200);HTTPServer(("localhost",31337),H).serve_forever()
